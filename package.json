@@ -1,0 +1,13 @@
+{
+  "name": "legalflow-projection-js",
+  "version": "1.0.0",
+  "keywords": [],
+  "contributors": [],
+  "dependencies": {
+    "browser-request": "^0.3.3",
+    "dottie": "^2.0.0"
+  },
+  "devDependencies": {
+    "request": "^2.82.0"
+  }
+}
