@@ -5,7 +5,8 @@
   "contributors": [],
   "dependencies": {
     "browser-request": "^0.3.3",
-    "dottie": "^2.0.0"
+    "dottie": "^2.0.0",
+    "node-rsa": "^0.4.2"
   },
   "devDependencies": {
     "request": "^2.82.0"
