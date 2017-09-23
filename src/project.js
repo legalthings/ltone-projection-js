@@ -48,7 +48,9 @@ function project(events, scenario, decrypt, notify = () => {}) {
     
     function getAction(event) {
         return scenario.getVersion(event.version)
-            .then(scenario => scenario.actions[event.action])
+            .then(scenario => {
+                return scenario.actions[event.action]
+            })
             .then(action => {
                 if (action) {
                     action.actor = projection.actors[action.actor];

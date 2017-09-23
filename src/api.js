@@ -148,8 +148,7 @@ function api() {
                     },
                     json: true
                 }, function(err, res, body){
-                    console.log(body.result);
-                    resolve(body.result);
+                    resolve(JSON.parse(body.result));
                 });
 
             });
@@ -175,9 +174,7 @@ function api() {
 
         });
 
-        this.addEvent = function(event, key) {
-
-            key.encrypt(JSON.stringify(event), 'base64');
+        this.addEvent = function(event) {
 
             return new Promise(function(resolve, reject) {
 
@@ -193,6 +190,7 @@ function api() {
                     },
                     json: true
                 }, function(err, res, body){
+                    console.log(body);
                     resolve(body.result);
                 });
             });
@@ -236,7 +234,6 @@ function api() {
                             if (err) {
                                 reject(err);
                             }
-
                             resolve(body.result);
                         });
                     });
