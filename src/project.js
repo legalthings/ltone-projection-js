@@ -24,7 +24,19 @@ function project(events, scenario, decrypt, notify = () => {}) {
     }
     
     function calculateCurrent() {
-        projection.current = {};
+
+        // get last event
+        // get latest scenario
+        // get scenario[lastevent]response.ok.transition
+
+        var lastEvent = projection.events[projection.events.length - 1];
+
+        return scenario.getVersion(lastEvent.version)
+            .then(lastScenario => {
+                const lastAction = lastScenario.actions[lastEvent.action];
+                const currentId = lastAction.responses[lastEvent.response].transition;
+                projection.current = lastScenario.actions[currentId];
+            });
     }
     
     function projectEvent(event) {
@@ -70,7 +82,7 @@ function project(events, scenario, decrypt, notify = () => {}) {
     
     function updateProjection(update, data) {
         if (typeof update === 'string') {
-            dottie.set(projection, update, value);
+            dottie.set(projection, update, data);
         } else if (typeof update === 'object') {
             for (const from in update) {
                 const to = update[from];

@@ -4,14 +4,14 @@ const events = [
       "response": "ok",
       "data": {
         "beslagene": {
-          "naam": "Arnold Daniels",
+          "naam": "Harold Heethoofd",
           "geboorte_datum": "1981-08-22"
         },
         "object": {
           "type": "auto",
-          "kenteken": "40-XPH-4",
-          "merk": "Suziki",
-          "kleur": "wit",
+          "kenteken": "TK-ZX-72",
+          "merk": "BMW",
+          "kleur": "zwart",
           "foto": "http://image.autotrader.nl/media/135317866-medium.jpg"
         }
       },
@@ -40,6 +40,43 @@ const events = [
         }
       },
       "timestamp": "2017-09-22T15:45:00+0200",
+      "version": "20170923"
+    },
+    {
+      "action": "ketenbeslaghuis_onderzoeksresultaten",
+      "response": "ok",
+      "data": {
+        "locatie": {
+          "lat": "52.0463866",
+          "lng": "4.2509162"
+        }
+      },
+      "timestamp": "2017-09-22T16:45:00+0200",
+      "version": "20170923"
+    },
+    {
+      "action": "besluit_openbaar_ministerie",
+      "response": "vervreemden",
+      "data": {
+        "besluit": "De auto wordt vervreemd."
+      },
+      "timestamp": "2017-09-22T17:05:00+0200",
+      "version": "20170923"
+    },
+    {
+      "action": "bericht_vervreemden",
+      "response": "ok",
+      "data": {},
+      "timestamp": "2017-09-22T17:06:00+0200",
+      "version": "20170923"
+    },
+    {
+      "action": "taxatie",
+      "response": "ok",
+      "data": {
+        "waarde": "38000"
+      },
+      "timestamp": "2017-09-23T11:05:00+0200",
       "version": "20170923"
     }
 ];
@@ -175,7 +212,7 @@ const scenarioVersion = {
     "digi_ontvangst": {
       "definition": "acknowledge",
       "description": "Digi heeft het object ontvangen",
-      "actor": "ketenbeslaghuis",
+      "actor": "digi",
       "responses": {
         "ok": {
           "transition": "digi_voltooid"
@@ -223,14 +260,15 @@ const scenarioVersion = {
           "update": "besluit"
         },
         "vervreemden": {
-          "transition": "berricht_vervreemden",
+          "transition": "bericht_vervreemden",
           "update": "besluit"
         }
       },
       "display": true
     },
-    "berricht_vervreemden": {
+    "bericht_vervreemden": {
       "title": "De beslagene is bericht van vervreemding",
+      "actor": "beslag_coordinator",
       "responses": {
         "ok": {
           "transition": "taxatie"
@@ -253,7 +291,7 @@ const scenarioVersion = {
     },
     "mogelijkheid_terugkoop": {
       "definition": "choice",
-      "title": "De beslagene krijg de mogelijkheid het goed terug te kopen voor de taxatiewaarde",
+      "title": "De beslagene krijg de mogelijkheid het goed terug te kopen tegen taxatiewaarde",
       "actor": "beslagene",
       "timeout": "14d",
       "responses": {
@@ -315,7 +353,7 @@ const scenarioVersion = {
     },
     "overdracht": {
       "definition": "acknowledge",
-      "title": "Bevestiging van overdracht van goed",
+      "title": "Bevestiging van overdracht aan nieuwe eigenaar",
       "actor": "bewaarder",
       "responses": {
         "ok": {
