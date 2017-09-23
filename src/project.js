@@ -43,6 +43,8 @@ function project(events, scenario, decrypt, notify = () => {}) {
             .then(data => {
                 data && updateProjection(action.responses[event.response].update, data);
                 event.data = data;
+                event.actor = action.actor.id;
+                event.title = action.title;
             })
     }
     
@@ -53,7 +55,9 @@ function project(events, scenario, decrypt, notify = () => {}) {
             })
             .then(action => {
                 if (action) {
+                    const actorId = action.actor;
                     action.actor = projection.actors[action.actor];
+                    action.actor.id = actorId;
                 }
                 
                 return action;
